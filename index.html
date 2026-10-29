@@ -1851,19 +1851,91 @@ html.js .reveal.in{
 .notice-body p{margin:0}
 .notice-body p + p{margin-top:10px}
 .notice-body a{color:var(--yellow);text-underline-offset:3px}
+.notice-body strong{color:var(--ink);font-weight:700}
 
-.notice-label{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.notice-body h4{
+  position:relative;
+  margin:20px 0 7px;
+  padding-left:16px;
+  font-family:var(--font-pixel);
+  font-size:14px;
+  font-weight:800;
+  line-height:1.7;
+  letter-spacing:.02em;
+  color:var(--yellow);
+}
+
+.notice-body h4::before{
+  content:"";
+  position:absolute;
+  top:.62em;
+  left:0;
+  width:8px;
+  height:8px;
+  background:var(--yellow);
+  box-shadow:2px 2px 0 rgba(255,216,77,.22);
+}
+
+.notice-body h4:first-child{margin-top:0}
+
+.notice-body ul,
+.notice-body ol{
+  display:grid;
+  gap:6px;
+  margin:8px 0 0;
+  padding-left:22px;
+}
+
+.notice-body li{padding-left:2px}
+.notice-body li::marker{color:var(--purple-soft)}
+
+.notice-body h4 + p,
+.notice-body ul + p,
+.notice-body ol + p{margin-top:8px}
+
+.notice-body .notice-sign{
+  margin-top:16px;
+  padding-top:12px;
+  border-top:2px dashed var(--line);
+  color:#8b83b4;
+  font-size:12px;
+}
+
+.notice-history{
   margin:18px 14px 6px;
   padding-top:14px;
   border-top:2px dashed var(--line);
+}
+
+.notice-history > summary{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:2px 0;
+  list-style:none;
+  cursor:pointer;
   font-family:var(--font-mono);
   font-size:10px;
   letter-spacing:.2em;
   color:#8b83b4;
+  transition:color .15s;
 }
+
+.notice-history > summary::-webkit-details-marker{display:none}
+.notice-history > summary::marker{content:""}
+.notice-history > summary:hover{color:var(--purple-soft)}
+.notice-history > summary .notice-toggle{margin-left:auto;width:18px;height:18px}
+
+.notice-history[open] > summary .notice-toggle{
+  border-color:var(--yellow);
+  background:var(--yellow);
+}
+.notice-history[open] > summary .notice-toggle::before{background:#1a1233}
+.notice-history[open] > summary .notice-toggle::after{
+  opacity:0;
+  transform:translate(-50%,-50%) rotate(90deg);
+}
+.notice-history[open] > summary{margin-bottom:2px}
 
 .notice-count{
   padding:0 5px;
@@ -2085,8 +2157,63 @@ html.js .reveal.in{
         <details class="notice-item is-latest" open>
           <summary>
             <span class="notice-date"><time datetime="2026-10-29">2026.10.29</time></span>
-            <span class="notice-title">小屋 1.0 上线，欢迎来坐坐</span>
+            <span class="notice-title">服务器玩法概念设计</span>
             <span class="notice-tag">NEW</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="notice-body">
+            <p><strong>【概念先导】多维叙事生存服 · 服务器内容介绍</strong></p>
+            <p>大家好，我正在筹备一个以“多世界 + 故事线 + 自由生存”为核心的类无限流 Minecraft 1.20.1 Forge 模组服务器，目前进入概念公开阶段。先把这套构想同步给大家，想听听你们的真实想法。</p>
+
+            <h4>核心架构：一个主城，通往多个世界</h4>
+            <p>服务器会有一个主城大厅，主城里放置多个传送门。每个门后面是一个独立世界观的世界，玩家穿过门就能进入不同的生存 / 冒险场景。</p>
+
+            <h4>世界大致分三类</h4>
+            <ol>
+              <li><strong>主城大厅：</strong>集合、组队、选择世界的中转站。</li>
+              <li><strong>故事世界（不刷新）：</strong>带世界观设定的长期生存世界，有剧情任务线、阶段目标和剧情 Boss，可自由选择是否开启故事模式，世界本身不会重置。</li>
+              <li><strong>资源世界（可刷新）：</strong>用于采集资源的独立世界，会定期整体刷新，保证资源可持续。</li>
+            </ol>
+            <p>所有故事世界维度由我们自制的原创模组提供，不是简单换地图，而是有独立维度、传送门、特殊物品和世界观包装的完整世界。</p>
+
+            <h4>故事模式：可选，不强制</h4>
+            <p>每个故事世界会有两套任务线：</p>
+            <ul>
+              <li><strong>普通生存任务线：</strong>默认可见，自由完成，适合想自己探索的玩家。</li>
+              <li><strong>故事模式任务线：</strong>默认隐藏。玩家在任务书里主动确认开启后，才会解锁故事线，进入剧情流程。</li>
+            </ul>
+            <p>故事模式采用线性任务链：按阶段推进，只有完成前置任务，后续剧情才会解锁。</p>
+            <p>故事模式支持自己组建团队并共享进度：队员完成的任务会同步给全队，Boss 击杀也按团队判定。最终 Boss 被击败，完成故事线可获得通关纪念一份。</p>
+            <p>不想走剧情？完全没问题。你可以只做普通任务、自由生存、四处探索，故事模式不强制参与。</p>
+
+            <h4>资源世界与刷新机制</h4>
+            <p>资源世界是独立维度，会按周期整体刷新。定期刷新后世界重新生成，玩家通过主城或菜单可以进入。</p>
+            <p>故事世界不刷新，建筑和进度长期保留。</p>
+
+            <h4>技术特色（简单说）</h4>
+            <ul>
+              <li>自制原版魔改风格维度与原创特殊物品；</li>
+              <li>FTB Quests + FTB Teams 实现剧情任务、团队共享、阶段解锁；</li>
+              <li>多世界与专属传送大厅；</li>
+              <li>后续会加入客户端模组同步方案，让玩家不需要手动下载模组，降低玩家更新整合包的成本。</li>
+            </ul>
+
+            <p><strong>后内测阶段</strong>可能出现回档、重启、模组调整，我会提前在群里通知。愿意一起打磨的来。</p>
+            <p class="notice-sign">——以上概念构想仅供参考，不代表最终品质。</p>
+          </div>
+        </details>
+
+        <details class="notice-history">
+          <summary>
+            <span>历史公告</span>
+            <span class="notice-count">04</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+
+          <details class="notice-item">
+          <summary>
+            <span class="notice-date"><time datetime="2026-10-29">2026.10.29</time></span>
+            <span class="notice-title">小屋 1.0 上线，欢迎来坐坐</span>
             <span class="notice-toggle" aria-hidden="true"></span>
           </summary>
           <div class="notice-body">
@@ -2094,8 +2221,6 @@ html.js .reveal.in{
             <p>接下来会慢慢补上新的项目和同人区，有什么想看的也可以来 B 站告诉我。谢谢每一个推门进来的人。</p>
           </div>
         </details>
-
-        <p class="notice-label">历史公告 <span class="notice-count">03</span></p>
 
         <details class="notice-item">
           <summary>
@@ -2131,6 +2256,7 @@ html.js .reveal.in{
             <p>第一版小屋上线，只有一张欢迎页和 B 站链接，但总算有了自己的坐标。</p>
             <p>当时的想法很简单：把喜欢的东西都放进来，慢慢把它变成一个家。</p>
           </div>
+          </details>
         </details>
       </div>
     </div>
