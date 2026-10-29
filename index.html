@@ -7,7 +7,7 @@
 <meta name="description" content="洛时Sera的个人小屋：像素风作品集、B站、GitHub、赞助、粉丝群与内测群入口，以及个人设定画册和同人二创画廊。">
 <meta name="theme-color" content="#0a0720">
 <meta property="og:title" content="洛时Sera的小屋">
-<meta property="og:description" content="在方块与星光之间，搭一间属于自己的小屋。">
+<meta property="og:description" content="在方块与星辰之间，搭一间自己的小屋。">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/avatar.png">
 <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -1723,6 +1723,170 @@ html.js .reveal.in{
   }
   html.js .reveal{opacity:1;transform:none}
 }
+/* ---------------------------------------------------------- notice */
+.notice-board{
+  position:relative;
+  padding:10px 10px 18px;
+  background:linear-gradient(180deg,#1a1240,#120c2c);
+  border:3px solid var(--line-hi);
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.06),
+    inset -2px -2px 0 rgba(0,0,0,.35),
+    8px 8px 0 rgba(4,2,12,.5);
+}
+
+.notice-item{
+  position:relative;
+  margin:8px;
+  border:2px solid var(--line);
+  background:#140e2f;
+  transition:border-color .18s, background .18s;
+}
+
+.notice-item[open]{
+  border-color:var(--purple);
+  background:linear-gradient(180deg,#1d1548,#150f33);
+  box-shadow:inset 0 0 0 1px rgba(155,109,255,.15);
+}
+
+.notice-item.is-latest{border-color:var(--yellow)}
+
+.notice-item.is-latest::before{
+  content:"";
+  position:absolute;
+  top:-2px;
+  bottom:-2px;
+  left:-2px;
+  width:5px;
+  background:var(--yellow);
+}
+
+.notice-item summary{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  cursor:pointer;
+  list-style:none;
+}
+
+.notice-item summary::-webkit-details-marker{display:none}
+.notice-item summary::marker{content:""}
+.notice-item summary:hover{background:rgba(155,109,255,.06)}
+.notice-item summary:focus-visible{outline:3px solid var(--yellow);outline-offset:-3px}
+
+.notice-date{
+  flex:none;
+  padding:1px 8px;
+  border:2px solid var(--line-hi);
+  background:#0c0724;
+  color:var(--purple-soft);
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
+  line-height:1.8;
+}
+
+.is-latest .notice-date{border-color:var(--yellow);color:var(--yellow)}
+
+.notice-title{
+  min-width:0;
+  font-size:14.5px;
+  font-weight:800;
+  letter-spacing:.02em;
+  line-height:1.6;
+}
+
+.notice-tag{
+  flex:none;
+  padding:0 6px;
+  background:var(--yellow);
+  color:#1a1233;
+  font-family:var(--font-mono);
+  font-size:9px;
+  letter-spacing:.1em;
+  line-height:1.9;
+}
+
+.notice-toggle{
+  position:relative;
+  flex:none;
+  width:20px;
+  height:20px;
+  border:2px solid var(--line-hi);
+  background:#0c0724;
+  transition:background .18s, border-color .18s;
+}
+
+.notice-toggle::before,
+.notice-toggle::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  background:var(--purple-soft);
+  transform:translate(-50%,-50%);
+}
+
+.notice-toggle::before{width:10px;height:2px}
+.notice-toggle::after{width:2px;height:10px;transition:opacity .15s, transform .15s}
+
+.notice-item[open] .notice-toggle{border-color:var(--yellow);background:var(--yellow)}
+.notice-item[open] .notice-toggle::before{background:#1a1233}
+.notice-item[open] .notice-toggle::after{opacity:0;transform:translate(-50%,-50%) rotate(90deg)}
+
+.notice-body{
+  padding:16px 18px 18px;
+  border-top:2px dashed var(--line);
+  font-family:var(--font-body);
+  color:#c9c2e8;
+  font-size:13.5px;
+  line-height:1.95;
+}
+
+.notice-body p{margin:0}
+.notice-body p + p{margin-top:10px}
+.notice-body a{color:var(--yellow);text-underline-offset:3px}
+
+.notice-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:18px 14px 6px;
+  padding-top:14px;
+  border-top:2px dashed var(--line);
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.2em;
+  color:#8b83b4;
+}
+
+.notice-count{
+  padding:0 5px;
+  border:2px solid var(--line-hi);
+  color:var(--purple-soft);
+  font-size:9px;
+  line-height:1.7;
+}
+
+@media (max-width:520px){
+  .notice-board{padding:6px 4px 14px}
+  .notice-item{margin:6px}
+  .notice-item summary{
+    grid-template-columns:auto 1fr auto;
+    grid-template-areas:
+      "date tag toggle"
+      "title title title";
+    padding:12px;
+    gap:9px;
+  }
+  .notice-date{grid-area:date;font-size:9.5px}
+  .notice-title{grid-area:title;font-size:13.5px}
+  .notice-tag{grid-area:tag;justify-self:end}
+  .notice-toggle{grid-area:toggle}
+  .notice-body{padding:14px;font-size:12.5px}
+}
 </style>
 </head>
 <body>
@@ -1813,6 +1977,7 @@ html.js .reveal.in{
 
     <nav class="site-nav" id="siteNav" aria-label="主导航">
       <a href="#home" class="active">首页</a>
+            <a href="#notice">公告</a>
       <a href="#links">传送门</a>
       <a href="#feedback">社区</a>
       <a href="#projects">项目</a>
@@ -1903,6 +2068,70 @@ html.js .reveal.in{
       </div>
     </div>
   </div>
+  <!-- 00 公告栏 -->
+  <section class="section tight" id="notice">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="kicker">00 / notice</p>
+        <h2>小屋公告栏</h2>
+        <p class="sec-desc">新版本、活动和我最近想说的话，都贴在这里。点开标题展开全文，历史公告也能随时翻。</p>
+      </div>
+
+      <div class="notice-board reveal">
+        <!-- 最新公告：默认展开，带 NEW 标签 -->
+        <details class="notice-item is-latest" open>
+          <summary>
+            <span class="notice-date"><time datetime="2026-10-29">2026.10.29</time></span>
+            <span class="notice-title">小屋 2.0 上线，欢迎来坐坐</span>
+            <span class="notice-tag">NEW</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="notice-body">
+            <p>折腾了好久，小屋终于换上了新的像素装修：蓝紫色的夜空、会发光的窗户，还有一个能翻页的画册。</p>
+            <p>接下来会慢慢补上新的项目和同人区，有什么想看的也可以来群里告诉我。谢谢每一个推门进来的人。</p>
+          </div>
+        </details>
+
+        <p class="notice-label">历史公告 <span class="notice-count">03</span></p>
+
+        <details class="notice-item">
+          <summary>
+            <span class="notice-date"><time datetime="2026-09-12">2026.09.12</time></span>
+            <span class="notice-title">粉丝群开放 &amp; 二创投稿说明</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="notice-body">
+            <p>粉丝群已经建好啦，群号在下面的社区区里。加群请备注「小屋」，群文件会放壁纸和草稿。</p>
+            <p>二创投稿可以直接发在群里或邮件给我，会注明作者和出处。请勿二次商用，谢谢喜欢。</p>
+          </div>
+        </details>
+
+        <details class="notice-item">
+          <summary>
+            <span class="notice-date"><time datetime="2026-08-03">2026.08.03</time></span>
+            <span class="notice-title">新的像素项目开始动工</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="notice-body">
+            <p>新项目已经画完第一版草图，是一个关于「浮空岛」和「门」的小故事。</p>
+            <p>开发进度会先丢在内测群，等稳定一点再放预览。想提前试玩的话，记得来内测群找我。</p>
+          </div>
+        </details>
+
+        <details class="notice-item">
+          <summary>
+            <span class="notice-date"><time datetime="2026-06-21">2026.06.21</time></span>
+            <span class="notice-title">小屋 1.0 开张</span>
+            <span class="notice-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="notice-body">
+            <p>第一版小屋上线，只有一张欢迎页和 B 站链接，但总算有了自己的坐标。</p>
+            <p>当时的想法很简单：把喜欢的东西都放进来，慢慢把它住成一个家。</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
 
   <!-- 01 链接区 -->
   <section class="section" id="links">
@@ -2590,6 +2819,17 @@ html.js .reveal.in{
     if (Math.abs(dx) > 50) step(dx > 0 ? -1 : 1);
   }, { passive: true });
 })();
+</script>
+<script>
+/* 公告栏：同一时间只展开一条（不需要可以删掉这段） */
+document.querySelectorAll('#notice .notice-item').forEach(function (item) {
+  item.addEventListener('toggle', function () {
+    if (!item.open) return;
+    document.querySelectorAll('#notice .notice-item').forEach(function (other) {
+      if (other !== item) other.open = false;
+    });
+  });
+});
 </script>
 </body>
 </html>
