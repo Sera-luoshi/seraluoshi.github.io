@@ -1013,7 +1013,7 @@ svg.ico{
 /* ---------------------------------------------------------- projects */
 .project-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:22px;
 }
 
@@ -1147,6 +1147,19 @@ svg.ico{
   text-decoration:underline;
   text-underline-offset:4px;
 }
+
+.plink.is-disabled{
+  color:#8b83b4;
+  cursor:not-allowed;
+  text-decoration:none;
+}
+
+.plink.is-disabled:hover{
+  color:#8b83b4;
+  text-decoration:none;
+}
+
+.plink.is-disabled .ico{opacity:.55}
 
 /* ---------------------------------------------------------- gallery */
 .gallery-bar{
@@ -2452,6 +2465,27 @@ html.js .reveal.in{
               <span class="tag">2027?</span>
             </div>
             <div class="project-links">
+              <a class="plink" href="https://space.bilibili.com/105331722" target="_blank" rel="noopener noreferrer">关注进度 <svg class="ico" aria-hidden="true"><use href="#i-bili"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-media">
+            <img src="assets/projects/server.png" alt="我的MC服务器概念图：漂浮岛上的三座发光传送门与主城平台" loading="lazy" width="960" height="540">
+            <span class="project-status is-wip">开发中</span>
+          </div>
+          <div class="project-body">
+            <h3>我的MC服务器</h3>
+            <p>以“多世界 + 故事线 + 自由生存”为核心的类无限流服务器，主城传送门通往不同世界。目前还在开发中。</p>
+            <div class="tags">
+              <span class="tag">Minecraft 1.20.1</span>
+              <span class="tag">Forge</span>
+              <span class="tag">多世界</span>
+            </div>
+            <div class="project-links">
+              <!-- 开服后：把下面这行 span 换成链接标签，href 填真实网盘地址 -->
+              <span class="plink is-disabled" aria-disabled="true">网盘链接 · 开发中 <svg class="ico" aria-hidden="true"><use href="#i-download"/></svg></span>
               <a class="plink" href="https://space.bilibili.com/105331722" target="_blank" rel="noopener noreferrer">关注进度 <svg class="ico" aria-hidden="true"><use href="#i-bili"/></svg></a>
             </div>
           </div>
